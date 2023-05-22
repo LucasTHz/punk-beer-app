@@ -30,10 +30,7 @@ export default function RouteNavBar() {
 						if (event.defaultPrevented) {
 							preventDefault();
 						} else {
-							navigation.dispatch({
-								...CommonActions.navigate(route.name, route.params),
-								target: state.key,
-							});
+							navigation.navigate(route.name, route.params);
 						}
 					}}
 					renderIcon={({ route, focused, color }) => {
