@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { styles } from '../Login/styles';
-import { TextInput, Button, Dialog, Portal } from 'react-native-paper';
+import { TextInput, Button } from 'react-native-paper';
 import { DialogError } from '../../components/dialogError';
 
 export function TelaLogin({ navigation }) {
 	const [email, setEmail] = useState('');
 	const [senha, setSenha] = useState('');
-	const [menssagem, setMenssagem] = useState('');
 	const [showPassord, setShowPassord] = useState(true);
-	const [visible, setVisible] = React.useState(false);
 	const [error, setError] = React.useState(false);
 
 	function verificarLogin() {
 		var userObj = { email: email, senha: senha };
 		var jsonBody = JSON.stringify(userObj);
-		navigation.navigate('Home');
+		navigation.navigate('Favorito');
 
 		// fetch('https://punk-beer-api.glitch.me/api/usuario/login', {
 		// 	method: 'POST',
@@ -29,7 +27,7 @@ export function TelaLogin({ navigation }) {
 		// 	.then((data) => {
 		// 		const token = data.get('x-access-token');
 		// 		if (token) {
-		// 			navigation.navigate('Home');
+		// 			navigation.navigate('Favorito');
 		// 		} else {
 		// 			setError(true);
 		// 		}
@@ -70,7 +68,6 @@ export function TelaLogin({ navigation }) {
 					<TouchableOpacity onPress={() => navigation.navigate('TelaRegistrar', {})}>
 						<Text style={styles.textButton}>Não tem uma conta? Faça uma já clicando AQUI</Text>
 					</TouchableOpacity>
-					<Text style={styles.textAlert}>{menssagem}</Text>
 					{error ? (
 						<DialogError
 							title="Error"
