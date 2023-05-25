@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Text, BottomNavigation } from 'react-native-paper';
+import { BottomNavigation } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Home from '../pages/Home';
+import Favorito from '../pages/Favorito';
 import Historico from '../pages/Historico';
 import MinhaLista from '../pages/Lista';
 import MeuPerfil from '../pages/Perfil';
@@ -56,8 +56,8 @@ export default function RouteNavBar() {
 			)}
 		>
 			<Tab.Screen
-				name="Home"
-				component={Home}
+				name="Favorito"
+				component={Favorito}
 				options={{
 					tabBarLabel: 'Favorito',
 					tabBarIcon: ({ color, size }) => {
