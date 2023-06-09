@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { styles } from '../Login/styles';
 import { TextInput, Button } from 'react-native-paper';
-import { DialogError } from '../../components/dialogError';
+import { DialogError } from '../../components/DialogError';
 
 export function TelaLogin({ navigation }) {
 	const [email, setEmail] = useState('');

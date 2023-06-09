@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Card, Text } from 'react-native-paper';
-const img = require('../../assets/164.png');
+const img = require('../../../assets/164.png');
 import { styles } from '../../components/Card/styles';
 
 export const ListCard = (props) => (

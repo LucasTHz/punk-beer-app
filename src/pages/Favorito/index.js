@@ -4,6 +4,7 @@ import { ListCard } from '../../components/Card/ListCard';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SimpleGrid } from 'react-native-super-grid';
+import { styles } from './styles';
 
 const cards = [
 	{ id: 1, title: 'Card 1' },
@@ -23,12 +24,13 @@ const cards = [
 export default function Favorito({ navigation }) {
 	return (
 		<SafeAreaView style={styles.container}>
+			<NavBar title="Meus Favoritos" icon1="magnify" icon2="dots-vertical" />
 			<ScrollView>
-				<NavBar title="Meus Favoritos" icon1="magnify" icon2="dots-vertical" />
 				<SimpleGrid
 					data={cards}
 					keyExtractor={(card) => card.id.toString()}
 					renderItem={({ item }) => <ListCard title={item.title} />}
+					style={styles.scroll}
 				/>
 			</ScrollView>
 		</SafeAreaView>
