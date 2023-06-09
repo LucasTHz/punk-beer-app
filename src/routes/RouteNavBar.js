@@ -5,7 +5,7 @@ import { BottomNavigation } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Favorito from '../pages/Favorito';
 import Historico from '../pages/Historico';
-import MinhaLista from '../pages/Lista';
+import MinhaLista from '../pages/MinhaLista';
 import MeuPerfil from '../pages/Perfil';
 
 const Tab = createBottomTabNavigator();
