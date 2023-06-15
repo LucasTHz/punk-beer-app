@@ -24,7 +24,7 @@ const cards = [
 
 export default function MinhaLista({ navigation }) {
 	return (
-		<SafeAreaView style={styles.container}>
+		<>
 			<NavBar title="Minha Lista" icon1="magnify" icon2="dots-vertical" />
 			<ScrollView>
 				<SimpleGrid
@@ -34,6 +34,6 @@ export default function MinhaLista({ navigation }) {
 					style={styles.scroll}
 				/>
 			</ScrollView>
-		</SafeAreaView>
+		</>
 	);
 }
