@@ -10,7 +10,7 @@ import MeuPerfil from '../pages/MeuPerfil';
 
 const Tab = createBottomTabNavigator();
 
-export default function RouteNavBar() {
+const RouteNavBar = () => {
 	return (
 		<Tab.Navigator
 			screenOptions={{
@@ -101,7 +101,9 @@ export default function RouteNavBar() {
 			}
 		</Tab.Navigator>
 	);
-}
+};
+
+export default RouteNavBar;
 
 const styles = StyleSheet.create({
 	container: {
