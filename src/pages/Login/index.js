@@ -3,38 +3,17 @@ import { View, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from
 import { styles } from '../Login/styles';
 import { TextInput, Button } from 'react-native-paper';
 import { DialogError } from '../../components/DialogError';
+import { useAuth } from '../../contexts/auth';
 
 export function TelaLogin({ navigation }) {
 	const [email, setEmail] = useState('');
 	const [senha, setSenha] = useState('');
 	const [showPassord, setShowPassord] = useState(true);
-	const [error, setError] = React.useState(false);
+	const [error, setError] = useState(false);
+	const { signed, signIn } = useAuth();
 
-	function verificarLogin() {
-		var userObj = { email: email, senha: senha };
-		var jsonBody = JSON.stringify(userObj);
-		navigation.navigate('Favorito');
-
-		// fetch('https://punk-beer-api.glitch.me/api/usuario/login', {
-		// 	method: 'POST',
-		// 	headers: {
-		// 		'Content-Type': 'application/json',
-		// 		Accept: 'application/json',
-		// 	},
-		// 	body: jsonBody,
-		// })
-		// 	.then((response) => response.headers)
-		// 	.then((data) => {
-		// 		const token = data.get('x-access-token');
-		// 		if (token) {
-		// 			navigation.navigate('Favorito');
-		// 		} else {
-		// 			setError(true);
-		// 		}
-		// 	})
-		// 	.catch((err) => {
-		// 		console.log(err);
-		// 	});
+	function handleSignIn() {
+		signIn(email, senha);
 	}
 
 	return (
@@ -46,7 +25,7 @@ export function TelaLogin({ navigation }) {
 						label="Email"
 						placeholder="Seu email"
 						value={email}
-						onChange={(email) => setEmail(email)}
+						onChangeText={(email) => setEmail(email)}
 						mode="outlined"
 					/>
 					<TextInput
@@ -62,7 +41,7 @@ export function TelaLogin({ navigation }) {
 						}
 						mode="outlined"
 					/>
-					<Button style={styles.buttonLogin} onPress={() => verificarLogin()} mode="contained">
+					<Button style={styles.buttonLogin} onPress={() => handleSignIn()} mode="contained">
 						<Text style={styles.textButton}>Entrar</Text>
 					</Button>
 					<TouchableOpacity onPress={() => navigation.navigate('TelaRegistrar', {})}>

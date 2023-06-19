@@ -1,11 +1,12 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { NavBar } from '../../components/NavBar';
 import { ListCard } from '../../components/Card/ListCard';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SimpleGrid } from 'react-native-super-grid';
 import { styles } from './styles';
-import { getToken } from '../../routes/Autentica';
+import MyMenu from '../../components/Menu/Menu';
+import { Appbar } from 'react-native-paper';
 
 const cards = [
 	{ id: 1, title: 'Card 1' },
@@ -22,7 +23,7 @@ const cards = [
 	{ id: 11, title: 'Card 6' },
 ];
 
-export default function Favorito({ navigation }) {
+const Favorito = ({ navigation }) => {
 	return (
 		<>
 			<NavBar title="Meus Favoritos" icon1="magnify" icon2="dots-vertical" />
@@ -36,4 +37,5 @@ export default function Favorito({ navigation }) {
 			</ScrollView>
 		</>
 	);
-}
+};
+export default Favorito;
