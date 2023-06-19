@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SimpleGrid } from 'react-native-super-grid';
 import { styles } from './styles';
+import { getToken } from '../../routes/Autentica';
 
 const cards = [
 	{ id: 1, title: 'Card 1' },
@@ -23,7 +24,7 @@ const cards = [
 
 export default function Favorito({ navigation }) {
 	return (
-		<SafeAreaView style={styles.container}>
+		<>
 			<NavBar title="Meus Favoritos" icon1="magnify" icon2="dots-vertical" />
 			<ScrollView>
 				<SimpleGrid
@@ -33,6 +34,6 @@ export default function Favorito({ navigation }) {
 					style={styles.scroll}
 				/>
 			</ScrollView>
-		</SafeAreaView>
+		</>
 	);
 }

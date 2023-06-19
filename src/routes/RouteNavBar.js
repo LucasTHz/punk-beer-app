@@ -6,11 +6,11 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Favorito from '../pages/Favorito';
 import Historico from '../pages/Historico';
 import MinhaLista from '../pages/MinhaLista';
-import MeuPerfil from '../pages/Perfil';
+import MeuPerfil from '../pages/MeuPerfil';
 
 const Tab = createBottomTabNavigator();
 
-export default function RouteNavBar() {
+const RouteNavBar = () => {
 	return (
 		<Tab.Navigator
 			screenOptions={{
@@ -101,7 +101,9 @@ export default function RouteNavBar() {
 			}
 		</Tab.Navigator>
 	);
-}
+};
+
+export default RouteNavBar;
 
 const styles = StyleSheet.create({
 	container: {
