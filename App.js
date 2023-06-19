@@ -1,18 +1,11 @@
-import {
-	DefaultTheme,
-	MD3DarkTheme,
-	MD3LightTheme,
-	Provider as PaperProvider,
-	adaptNavigationTheme,
-} from 'react-native-paper';
+import { MD3DarkTheme, MD3LightTheme, Provider as PaperProvider } from 'react-native-paper';
 
 import { NavigationContainer } from '@react-navigation/native';
-import RouteNavBar from './src/routes/RouteNavBar';
-import { TelaLogin } from './src/pages/Login';
 import { LightScheme } from './assets/themes/LightScheme';
 import { DarkScheme } from './assets/themes/DarkScheme';
-import { createStackNavigator } from '@react-navigation/stack';
 import { useColorScheme } from 'react-native';
+import Routes from './src/routes';
+import AuthContext, { AuthProvider } from './src/contexts/auth';
 
 const LightTheme = {
 	...MD3LightTheme,
@@ -23,8 +16,9 @@ const DarkTheme = {
 	...MD3DarkTheme,
 	colors: DarkScheme,
 };
-
-const Stack = createStackNavigator();
+if (__DEV__) {
+	import('./ReactotronConfig').then(() => console.log('Reactotron Configured'));
+}
 
 export default function App() {
 	const scheme = useColorScheme();
@@ -32,15 +26,9 @@ export default function App() {
 	return (
 		<PaperProvider theme={theme}>
 			<NavigationContainer>
-				<Stack.Navigator
-					initialRouteName="Login"
-					screenOptions={{
-						headerShown: false,
-					}}
-				>
-					<Stack.Screen name="Login" component={TelaLogin} />
-					<Stack.Screen name="Favorito" component={RouteNavBar} />
-				</Stack.Navigator>
+				<AuthProvider>
+					<Routes />
+				</AuthProvider>
 			</NavigationContainer>
 		</PaperProvider>
 	);
