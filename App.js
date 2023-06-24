@@ -5,7 +5,7 @@ import { LightScheme } from './assets/themes/LightScheme';
 import { DarkScheme } from './assets/themes/DarkScheme';
 import { useColorScheme } from 'react-native';
 import Routes from './src/routes';
-import AuthContext, { AuthProvider } from './src/contexts/auth';
+import { AuthProvider } from './src/contexts/auth';
 
 const LightTheme = {
 	...MD3LightTheme,
