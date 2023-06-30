@@ -1,5 +1,4 @@
 import api from './api';
-import jwt_decode from 'jwt-decode';
 
 export const signIn = async (email, password) => {
 	try {
@@ -14,13 +13,22 @@ export const signIn = async (email, password) => {
 	}
 };
 
-export const getPerfil = async (token) => {
+export const getPerfil = async (userId) => {
 	try {
-		const decodedToken = jwt_decode(token);
-		const userId = decodedToken.id;
 		return ({ data } = await api.get('/usuario/show/' + userId));
 	} catch (error) {
 		console.error('An error occurred during getPerfil:', error.message);
+		// Handle specific error cases if necessary
+	}
+};
+
+export const updateUser = async (userId, data) => {
+	try {
+		const { data } = await api.put('/usuario/update/' + userId, data);
+		await AsyncStorage.setItem('@PunkBeer:user', JSON.stringify(data[0]));
+		console.log(data);
+	} catch (error) {
+		console.error('An error occurred during updateUser:', error.message);
 		// Handle specific error cases if necessary
 	}
 };

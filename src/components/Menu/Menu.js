@@ -1,16 +1,12 @@
-// Menu.js
 import React from 'react';
-import { Menu } from 'react-native-paper';
+import { Menu as MenuPaper } from 'react-native-paper';
 
-const MyMenu = ({ visible, onDismiss, anchor, handleMenuItemPress, icon }) => {
-	const handlePress = () => console.log('Pressed');
+const Menu = ({ visible, onDismiss, anchor, handleMenuItemPress, icon, title }) => {
 	return (
-		<Menu visible={visible} onDismiss={onDismiss} anchor={anchor} icon={icon}>
-			<Menu.Item onPress={handleMenuItemPress} title="Opção 1" />
-			<Menu.Item onPress={handlePress} title="Sair" />
-			<Menu.Item onPress={handleMenuItemPress} title="Opção 3" />
-		</Menu>
+		<MenuPaper visible={visible} onDismiss={onDismiss} anchor={anchor} icon={icon}>
+			<MenuPaper.Item onPress={handleMenuItemPress} title={title} />
+		</MenuPaper>
 	);
 };
 
-export default MyMenu;
+export default Menu;

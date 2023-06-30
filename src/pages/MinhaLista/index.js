@@ -6,6 +6,7 @@ import { NavBar } from '../../components/NavBar';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SimpleGrid } from 'react-native-super-grid';
 import { ListCard } from '../../components/Card/ListCard';
+import { useAuth } from '../../contexts/auth';
 
 const cards = [
 	{ id: 1, title: 'Card 1' },
@@ -23,9 +24,10 @@ const cards = [
 ];
 
 export default function MinhaLista({ navigation }) {
+	const { signOut } = useAuth();
 	return (
 		<>
-			<NavBar title="Minha Lista" icon1="magnify" icon2="dots-vertical" />
+			<NavBar title="Minha Lista" icon1="magnify" icon2="dots-vertical" menu={{ title: 'Sair' }} />
 			<ScrollView>
 				<SimpleGrid
 					data={cards}

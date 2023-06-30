@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import { NavBar } from '../../components/NavBar';
 import { ListCard } from '../../components/Card/ListCard';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SimpleGrid } from 'react-native-super-grid';
 import { styles } from './styles';
-import MyMenu from '../../components/Menu/Menu';
-import { Appbar } from 'react-native-paper';
+import { useAuth } from '../../contexts/auth';
 
 const cards = [
 	{ id: 1, title: 'Card 1' },
@@ -23,10 +21,17 @@ const cards = [
 	{ id: 11, title: 'Card 6' },
 ];
 
-const Favorito = ({ navigation }) => {
+const Favorito = () => {
+	const { signOut } = useAuth();
+	const handleSignOut = () => signOut();
 	return (
 		<>
-			<NavBar title="Meus Favoritos" icon1="magnify" icon2="dots-vertical" />
+			<NavBar
+				title="Meus Favoritos"
+				icon1="magnify"
+				icon2="dots-vertical"
+				menu={{ title: 'Sair', actionMenu: () => handleSignOut }}
+			/>
 			<ScrollView>
 				<SimpleGrid
 					data={cards}
