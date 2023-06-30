@@ -23,7 +23,7 @@ export const NavBar = (props) => {
 			<Menu
 				visible={isMenuOpen}
 				onDismiss={closeMenu}
-				handleMenuItemPress={props.menu?.actionMenu()}
+				handleMenuItemPress={props.menu?.actionMenu}
 				title={props.menu?.title}
 				anchor={<Appbar.Action onPress={openMenu} icon={props.icon2} />}
 			/>
