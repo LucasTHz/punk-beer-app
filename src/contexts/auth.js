@@ -26,11 +26,14 @@ export const AuthProvider = ({ children }) => {
 	async function signIn(email, password) {
 		const token = await auth.signIn(email, password);
 		api.defaults.headers.Authorization = `Bearer ${token}`;
-		const response = await auth.getPerfil(token);
+		const decodedToken = jwt_decode(token);
+		const userId = decodedToken.id;
+		const response = await auth.getPerfil(userId);
 
 		setUser(response.data[0]);
 		await AsyncStorage.setItem('@PunkBeer:user', JSON.stringify(response.data[0]));
 		await AsyncStorage.setItem('@PunkBeer:token', token);
+		await AsyncStorage.setItem('@PunkBeer:userId', userId);
 	}
 
 	async function signOut() {
