@@ -12,8 +12,12 @@ export function TelaLogin({ navigation }) {
 	const [error, setError] = useState(false);
 	const { signed, signIn } = useAuth();
 
-	function handleSignIn() {
-		signIn(email, senha);
+	async function handleSignIn() {
+		const result = await signIn(email, senha);
+
+		if (result) {
+			setError(true);
+		}
 	}
 
 	return (
