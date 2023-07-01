@@ -36,10 +36,7 @@ export const AuthProvider = ({ children }) => {
 		api.defaults.headers.Authorization = `Bearer ${token}`;
 		const decodedToken = jwt_decode(token);
 		setUserId(decodedToken.id);
-		const response = await getUser(decodedToken.id);
-
-		setUser(response.data[0]);
-		await AsyncStorage.setItem('@PunkBeer:user', JSON.stringify(response.data[0]));
+		await getUser(decodedToken.id);
 		await AsyncStorage.setItem('@PunkBeer:token', token);
 		await AsyncStorage.setItem('@PunkBeer:userId', userId);
 	}
@@ -58,8 +55,14 @@ export const AuthProvider = ({ children }) => {
 		setUser(data[0]);
 		await AsyncStorage.setItem('@PunkBeer:user', JSON.stringify(data[0]));
 	}
+
+	async function getMyList() {
+		const data = await auth.getMyList(userId);
+		return data;
+	}
+
 	return (
-		<AuthContext.Provider value={{ signed: !!user, user, signIn, signOut, loading, updateUser, getUser }}>
+		<AuthContext.Provider value={{ signed: !!user, user, signIn, signOut, loading, updateUser, getUser, getMyList }}>
 			{children}
 		</AuthContext.Provider>
 	);
