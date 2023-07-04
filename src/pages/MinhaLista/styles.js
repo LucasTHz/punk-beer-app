@@ -4,7 +4,15 @@ export const styles = StyleSheet.create({
 	container: {
 		backgroundColor: '#fff',
 		flex: 1,
-		alignItems: 'baseline',
+		// alignItems: 'baseline',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	messageEmpty: {
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+		marginTop: 200,
 	},
 	scroll: {
 		marginRight: 10,
