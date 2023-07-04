@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { FAB, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './styles';
 import { NavBar } from '../../components/NavBar';
@@ -45,6 +45,10 @@ export default function MinhaLista() {
 		navigation.navigate('Show Item', { card });
 	};
 
+	const handleCreateItem = () => {
+		navigation.navigate('Criação do item');
+	};
+
 	return (
 		<>
 			<NavBar title="Minha Lista" icon1="magnify" icon2="dots-vertical" menu={{ title: 'Sair' }} />
@@ -77,6 +81,7 @@ export default function MinhaLista() {
 					style={styles.scroll}
 				/>
 			</ScrollView>
+			<FAB icon="plus" style={styles.fab} onPress={() => handleCreateItem()} />
 		</>
 	);
 }

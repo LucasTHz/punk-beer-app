@@ -28,4 +28,11 @@ export const styles = StyleSheet.create({
 	text: {
 		marginTop: 5,
 	},
+	fab: {
+		position: 'absolute',
+		// zIndex: 100,
+		margin: 16,
+		right: 0,
+		bottom: 0,
+	},
 });
