@@ -4,6 +4,7 @@ export const styles = StyleSheet.create({
 	container: {
 		backgroundColor: '#fff',
 		flex: 1,
+		alignItems: 'baseline',
 	},
 	scroll: {
 		marginRight: 10,

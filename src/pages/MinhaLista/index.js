@@ -8,8 +8,11 @@ import { SimpleGrid } from 'react-native-super-grid';
 import { ListCard } from '../../components/Card/ListCard';
 import { useAuth } from '../../contexts/auth';
 import { Button } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 
-export default function MinhaLista({ navigation }) {
+export default function MinhaLista() {
+	const navigation = useNavigation();
+
 	const { signOut, getMyList } = useAuth();
 	const [cards, setCards] = React.useState([]);
 	const [error, setError] = useState({});
@@ -33,6 +36,10 @@ export default function MinhaLista({ navigation }) {
 		setShowDialogError(true);
 	};
 
+	const getMyItem = (card) => {
+		navigation.navigate('Show Item', { card });
+	};
+
 	return (
 		<>
 			<NavBar title="Minha Lista" icon1="magnify" icon2="dots-vertical" menu={{ title: 'Sair' }} />
@@ -48,7 +55,14 @@ export default function MinhaLista({ navigation }) {
 				<SimpleGrid
 					data={cards}
 					keyExtractor={(card) => card.id_minha_lista.toString()}
-					renderItem={({ item }) => <ListCard title={item.list_nome_cerveja} />}
+					renderItem={({ item }) => (
+						<ListCard
+							title={item.list_nome_cerveja}
+							showCard={() => {
+								getMyItem(item);
+							}}
+						/>
+					)}
 					style={styles.scroll}
 				/>
 			</ScrollView>
