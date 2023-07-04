@@ -38,3 +38,13 @@ export const getMyList = async () => {
 		return error.response.data;
 	}
 };
+
+export const deleteItemMyList = async (id) => {
+	try {
+		const { data } = await api.delete('/usuario/minha-lista/delete/' + id);
+
+		return data;
+	} catch (error) {
+		return error.response.data;
+	}
+};

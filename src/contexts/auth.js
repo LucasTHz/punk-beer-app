@@ -61,8 +61,15 @@ export const AuthProvider = ({ children }) => {
 		return data;
 	}
 
+	async function deleteItemMyList(id) {
+		const data = await auth.deleteItemMyList(id);
+		return data;
+	}
+
 	return (
-		<AuthContext.Provider value={{ signed: !!user, user, signIn, signOut, loading, updateUser, getUser, getMyList }}>
+		<AuthContext.Provider
+			value={{ signed: !!user, user, signIn, signOut, loading, updateUser, getUser, getMyList, deleteItemMyList }}
+		>
 			{children}
 		</AuthContext.Provider>
 	);
