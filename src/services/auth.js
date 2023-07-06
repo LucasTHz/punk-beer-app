@@ -48,3 +48,13 @@ export const deleteItemMyList = async (id) => {
 		return error.response.data;
 	}
 };
+
+export const createItemMyList = async (item) => {
+	try {
+		const { data } = await api.post('/usuario/minha-lista/store', item);
+
+		return data;
+	} catch (error) {
+		return error.response.data;
+	}
+};

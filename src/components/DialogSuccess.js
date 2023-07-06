@@ -7,7 +7,7 @@ export const DialogSuccess = (props) => {
 	const hideDialog = () => {
 		setVisible(false);
 		props.onDismiss();
-		props.navigation();
+		props?.navigation();
 	};
 
 	return (

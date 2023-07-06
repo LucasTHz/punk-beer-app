@@ -10,6 +10,8 @@ import { ListCard } from '../../components/Card/ListCard';
 import { useAuth } from '../../contexts/auth';
 import { useNavigation } from '@react-navigation/native';
 import { DialogError } from '../../components/DialogError';
+import LottieView from 'lottie-react-native';
+import DrinkBeer from '../../../assets/animations/beerLoading.json';
 
 export default function MinhaLista() {
 	const navigation = useNavigation();
@@ -19,20 +21,29 @@ export default function MinhaLista() {
 	const [error, setError] = useState({});
 	const [showDialogError, setShowDialogError] = useState(false);
 	const [showMessageEmpty, setShowMessageEmpty] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+
+	const handleSignOut = () => signOut();
 
 	useEffect(() => {
 		async function loadMyList() {
 			const result = await getMyList();
 
 			if (result.message === 'Nenhuma combinação encontrada') {
+				setIsLoading(false);
 				return setShowMessageEmpty(true);
 			}
 			if (result.error) {
 				handleSetError(result);
+				setIsLoading(false);
 			} else {
 				setCards(result);
+				setIsLoading(false);
 			}
 		}
+
+		setIsLoading(true);
+
 		loadMyList();
 	}, []);
 
@@ -51,7 +62,12 @@ export default function MinhaLista() {
 
 	return (
 		<>
-			<NavBar title="Minha Lista" icon1="magnify" icon2="dots-vertical" menu={{ title: 'Sair' }} />
+			<NavBar
+				title="Minha Lista"
+				icon1="magnify"
+				icon2="dots-vertical"
+				menu={{ title: 'Sair', actionMenu: () => handleSignOut }}
+			/>
 			{showMessageEmpty && (
 				<View style={styles.messageEmpty}>
 					<Text variant="headlineLarge">Sem item em minha lista</Text>
@@ -66,22 +82,30 @@ export default function MinhaLista() {
 					onDismiss={() => setShowDialogError(false)}
 				/>
 			)}
-			<ScrollView>
-				<SimpleGrid
-					data={cards}
-					keyExtractor={(card) => card.id_minha_lista.toString()}
-					renderItem={({ item }) => (
-						<ListCard
-							title={item.list_nome_cerveja}
-							showCard={() => {
-								getMyItem(item);
-							}}
+			{isLoading ? (
+				<View style={styles.container}>
+					<LottieView autoPlay style={styles.animation} source={DrinkBeer} />
+				</View>
+			) : (
+				<View style={styles.container}>
+					<ScrollView>
+						<SimpleGrid
+							data={cards}
+							keyExtractor={(card) => card.id_minha_lista.toString()}
+							renderItem={({ item }) => (
+								<ListCard
+									title={item.list_nome_cerveja}
+									showCard={() => {
+										getMyItem(item);
+									}}
+								/>
+							)}
+							style={styles.scroll}
 						/>
-					)}
-					style={styles.scroll}
-				/>
-			</ScrollView>
-			<FAB icon="plus" style={styles.fab} onPress={() => handleCreateItem()} />
+					</ScrollView>
+					<FAB icon="plus" style={styles.fab} onPress={() => handleCreateItem()} />
+				</View>
+			)}
 		</>
 	);
 }
