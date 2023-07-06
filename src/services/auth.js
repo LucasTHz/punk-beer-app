@@ -30,3 +30,31 @@ export const updateUser = async (userId, info) => {
 		return error.response.data;
 	}
 };
+export const getMyList = async () => {
+	try {
+		const { data } = await api.get('/usuario/minha-lista/index');
+		return data;
+	} catch (error) {
+		return error.response.data;
+	}
+};
+
+export const deleteItemMyList = async (id) => {
+	try {
+		const { data } = await api.delete('/usuario/minha-lista/delete/' + id);
+
+		return data;
+	} catch (error) {
+		return error.response.data;
+	}
+};
+
+export const createItemMyList = async (item) => {
+	try {
+		const { data } = await api.post('/usuario/minha-lista/store', item);
+
+		return data;
+	} catch (error) {
+		return error.response.data;
+	}
+};

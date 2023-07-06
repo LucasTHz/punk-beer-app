@@ -25,6 +25,10 @@ export const AuthProvider = ({ children }) => {
 		loadStorageData();
 	}, []);
 
+	const setHandleUserId = (id) => {
+		setUserId(id);
+	};
+
 	async function signIn(email, password) {
 		const token = await auth.signIn(email, password);
 
@@ -35,11 +39,8 @@ export const AuthProvider = ({ children }) => {
 
 		api.defaults.headers.Authorization = `Bearer ${token}`;
 		const decodedToken = jwt_decode(token);
-		setUserId(decodedToken.id);
-		const response = await getUser(decodedToken.id);
-
-		setUser(response.data[0]);
-		await AsyncStorage.setItem('@PunkBeer:user', JSON.stringify(response.data[0]));
+		setHandleUserId(decodedToken.id);
+		await getUser(decodedToken.id);
 		await AsyncStorage.setItem('@PunkBeer:token', token);
 		await AsyncStorage.setItem('@PunkBeer:userId', userId);
 	}
@@ -58,8 +59,37 @@ export const AuthProvider = ({ children }) => {
 		setUser(data[0]);
 		await AsyncStorage.setItem('@PunkBeer:user', JSON.stringify(data[0]));
 	}
+
+	async function getMyList() {
+		const data = await auth.getMyList(userId);
+		return data;
+	}
+
+	async function deleteItemMyList(id) {
+		const data = await auth.deleteItemMyList(id);
+		return data;
+	}
+
+	async function createItemMyList(item) {
+		const data = await auth.createItemMyList(item);
+		return data;
+	}
+
 	return (
-		<AuthContext.Provider value={{ signed: !!user, user, signIn, signOut, loading, updateUser, getUser }}>
+		<AuthContext.Provider
+			value={{
+				signed: !!user,
+				user,
+				signIn,
+				signOut,
+				loading,
+				updateUser,
+				getUser,
+				getMyList,
+				deleteItemMyList,
+				createItemMyList,
+			}}
+		>
 			{children}
 		</AuthContext.Provider>
 	);
