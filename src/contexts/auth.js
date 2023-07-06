@@ -75,6 +75,16 @@ export const AuthProvider = ({ children }) => {
 		return data;
 	}
 
+	async function getMyFavorite() {
+		const data = await auth.getMyFavorite(userId);
+		return data;
+	}
+
+	async function createUser(info) {
+		const data = await auth.createUser(info);
+		return data;
+	}
+
 	return (
 		<AuthContext.Provider
 			value={{
@@ -88,6 +98,8 @@ export const AuthProvider = ({ children }) => {
 				getMyList,
 				deleteItemMyList,
 				createItemMyList,
+				getMyFavorite,
+				createUser,
 			}}
 		>
 			{children}
