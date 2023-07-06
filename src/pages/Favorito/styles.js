@@ -19,4 +19,10 @@ export const styles = StyleSheet.create({
 	text: {
 		marginTop: 5,
 	},
+	messageEmpty: {
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+		marginTop: 200,
+	},
 });

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavBar } from '../../components/NavBar';
 import { ListCard } from '../../components/Card/ListCard';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -6,25 +6,46 @@ import { SimpleGrid } from 'react-native-super-grid';
 import { styles } from './styles';
 import { useAuth } from '../../contexts/auth';
 import { View } from 'react-native';
-
-const cards = [
-	{ id: 1, title: 'Card 1' },
-	{ id: 2, title: 'Card 2' },
-	{ id: 3, title: 'Card 3' },
-	{ id: 4, title: 'Card 4' },
-	{ id: 5, title: 'Card 5' },
-	{ id: 5, title: 'Card 6' },
-	{ id: 6, title: 'Card 1' },
-	{ id: 7, title: 'Card 2' },
-	{ id: 8, title: 'Card 3' },
-	{ id: 9, title: 'Card 4' },
-	{ id: 10, title: 'Card 5' },
-	{ id: 11, title: 'Card 6' },
-];
+import { useNavigation } from '@react-navigation/native';
+import { Text } from 'react-native-paper';
 
 const Favorito = () => {
-	const { signOut } = useAuth();
+	const { signOut, getMyFavorite } = useAuth();
+	const navigation = useNavigation();
+	const [error, setError] = useState({});
+	const [cards, setCards] = React.useState([]);
+	const [showDialogError, setShowDialogError] = useState(false);
+	const [showMessageEmpty, setShowMessageEmpty] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+
+	useEffect(() => {
+		async function loadMyList() {
+			const result = await getMyFavorite();
+
+			if (result.message === 'Nenhum item em sua lista de favoritos') {
+				setIsLoading(false);
+				return setShowMessageEmpty(true);
+			}
+			if (result.error) {
+				handleSetError(result);
+				setIsLoading(false);
+			} else {
+				setCards(result);
+				setIsLoading(false);
+			}
+		}
+
+		setIsLoading(true);
+
+		loadMyList();
+	}, []);
+
 	const handleSignOut = () => signOut();
+
+	const handleSetError = (data) => {
+		setError(data);
+		setShowDialogError(true);
+	};
 	return (
 		<>
 			<NavBar
@@ -33,16 +54,23 @@ const Favorito = () => {
 				icon2="dots-vertical"
 				menu={{ title: 'Sair', actionMenu: () => handleSignOut }}
 			/>
-			<View style={styles.container}>
-				<ScrollView>
-					<SimpleGrid
-						data={cards}
-						keyExtractor={(card) => card.id.toString()}
-						renderItem={({ item }) => <ListCard title={item.title} />}
-						style={styles.scroll}
-					/>
-				</ScrollView>
-			</View>
+			{showMessageEmpty ? (
+				<View style={styles.messageEmpty}>
+					<Text variant="headlineLarge">Sem item nos favoritos</Text>
+					<Text variant="titleMedium">Faça uma busca e favorite os resultados</Text>
+				</View>
+			) : (
+				<View style={styles.container}>
+					<ScrollView>
+						<SimpleGrid
+							data={cards}
+							keyExtractor={(card) => card.id_favorito.toString()}
+							renderItem={({ item }) => <ListCard title={item.fav_nome} />}
+							style={styles.scroll}
+						/>
+					</ScrollView>
+				</View>
+			)}
 		</>
 	);
 };

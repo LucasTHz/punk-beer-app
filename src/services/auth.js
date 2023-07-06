@@ -58,3 +58,22 @@ export const createItemMyList = async (item) => {
 		return error.response.data;
 	}
 };
+
+export const getMyFavorite = async (userId) => {
+	try {
+		const { data } = await api.get('/usuario/favorito/index');
+		return data;
+	} catch (error) {
+		return error.response.data;
+	}
+};
+
+export const createUser = async (info) => {
+	try {
+		const { data } = await api.post('/usuario/store', info);
+
+		return data;
+	} catch (error) {
+		return error.response.data;
+	}
+};
