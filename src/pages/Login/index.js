@@ -48,7 +48,7 @@ export function TelaLogin({ navigation }) {
 					<Button style={styles.buttonLogin} onPress={() => handleSignIn()} mode="contained">
 						<Text style={styles.textButton}>Entrar</Text>
 					</Button>
-					<TouchableOpacity onPress={() => navigation.navigate('TelaRegistrar', {})}>
+					<TouchableOpacity onPress={() => navigation.navigate('TelaRegistrar')}>
 						<Text style={styles.textButton}>Não tem uma conta? Faça uma já clicando AQUI</Text>
 					</TouchableOpacity>
 					{error ? (
