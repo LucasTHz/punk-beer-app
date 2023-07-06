@@ -5,6 +5,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { SimpleGrid } from 'react-native-super-grid';
 import { styles } from './styles';
 import { useAuth } from '../../contexts/auth';
+import { View } from 'react-native';
 
 const cards = [
 	{ id: 1, title: 'Card 1' },
@@ -32,14 +33,16 @@ const Favorito = () => {
 				icon2="dots-vertical"
 				menu={{ title: 'Sair', actionMenu: () => handleSignOut }}
 			/>
-			<ScrollView>
-				<SimpleGrid
-					data={cards}
-					keyExtractor={(card) => card.id.toString()}
-					renderItem={({ item }) => <ListCard title={item.title} />}
-					style={styles.scroll}
-				/>
-			</ScrollView>
+			<View style={styles.container}>
+				<ScrollView>
+					<SimpleGrid
+						data={cards}
+						keyExtractor={(card) => card.id.toString()}
+						renderItem={({ item }) => <ListCard title={item.title} />}
+						style={styles.scroll}
+					/>
+				</ScrollView>
+			</View>
 		</>
 	);
 };

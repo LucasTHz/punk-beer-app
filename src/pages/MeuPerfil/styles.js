@@ -3,6 +3,7 @@ export const style = {
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
+		backgroundColor: '#fff',
 	},
 	centeredView: {
 		input: {
@@ -12,11 +13,14 @@ export const style = {
 		justifyContent: 'center',
 		alignItems: 'center',
 		marginBottom: 22,
-		// Defina outras propriedades de estilo para a View centralizada, se necessário
 	},
 	title: {
 		marginTop: 30,
 		marginLeft: 20,
+		backgroundColor: '#fff',
+	},
+	viewTitle: {
+		backgroundColor: '#fff',
 	},
 
 	footer: {
