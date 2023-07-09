@@ -14,7 +14,7 @@ import { DialogSuccess } from '../../components/DialogSuccess';
 
 export default function MeuPerfil() {
 	const theme = useTheme();
-	const { user, userId, updateUser, getUser, deleteUser } = useAuth();
+	const { user, updateUser, getUser, deleteUser, signOut } = useAuth();
 	let data = new Date(user.usu_data_nascimento);
 	const formattedDate = format(data, 'dd/MM/yyyy', { timeZone: 'America/Sao_Paulo' });
 
@@ -35,8 +35,8 @@ export default function MeuPerfil() {
 		const result = await deleteUser(user.id_usuario);
 		if (result.error) {
 			handleSetError(result);
-		} else {
-			handleSetSuccess(result);
+		} else if (result.message === 'Usuário deletado com sucesso!') {
+			handleSetSuccessDelete(result);
 		}
 	};
 
@@ -51,6 +51,12 @@ export default function MeuPerfil() {
 		setMessageSuccess(data);
 		setShowDialogSuccess(true);
 		await getUser();
+	};
+
+	const handleSetSuccessDelete = async (data) => {
+		setMessageSuccess(data.message);
+		setShowDialogSuccess(true);
+		await signOut();
 	};
 
 	async function handleUpdate() {
@@ -88,7 +94,6 @@ export default function MeuPerfil() {
 									body={messageSuccess}
 									visible={showDialogSuccess}
 									onDismiss={() => setShowDialogSuccess(false)}
-									navigation={() => {}}
 								/>
 							)}
 							<TextInput
