@@ -14,7 +14,7 @@ import { DialogSuccess } from '../../components/DialogSuccess';
 
 export default function MeuPerfil() {
 	const theme = useTheme();
-	const { user, userId, updateUser, getUser } = useAuth();
+	const { user, userId, updateUser, getUser, deleteUser } = useAuth();
 	let data = new Date(user.usu_data_nascimento);
 	const formattedDate = format(data, 'dd/MM/yyyy', { timeZone: 'America/Sao_Paulo' });
 
@@ -31,7 +31,14 @@ export default function MeuPerfil() {
 	const [showDialogSuccess, setShowDialogSuccess] = useState(false);
 	const [messageSuccess, setMessageSuccess] = useState(false);
 
-	const handleDelete = () => {};
+	const handleDelete = async () => {
+		const result = await deleteUser(user.id_usuario);
+		if (result.error) {
+			handleSetError(result);
+		} else {
+			handleSetSuccess(result);
+		}
+	};
 
 	const handleSetError = (data) => {
 		setError(data);
@@ -48,7 +55,6 @@ export default function MeuPerfil() {
 
 	async function handleUpdate() {
 		const result = await updateUser({ senha: password, confirmarSenha: confirmPassword, nome: name });
-
 		if (result.error) {
 			handleSetError(result);
 		} else {
@@ -158,7 +164,7 @@ export default function MeuPerfil() {
 			</ScrollView>
 			<Text variant="labelMedium" style={style.footer}>
 				Caso deseja excluir sua conta,{' '}
-				<TouchableOpacity style={style.buttonDeleteAccount} onPress={handleDelete()}>
+				<TouchableOpacity style={style.buttonDeleteAccount} onPress={() => handleDelete()}>
 					<Text variant="labelMedium">clique aqui</Text>
 				</TouchableOpacity>
 			</Text>
