@@ -85,6 +85,11 @@ export const AuthProvider = ({ children }) => {
 		return data;
 	}
 
+	async function deleteUser(id) {
+		const data = await auth.deleteUser(id);
+		return data;
+	}
+
 	return (
 		<AuthContext.Provider
 			value={{
@@ -100,6 +105,7 @@ export const AuthProvider = ({ children }) => {
 				createItemMyList,
 				getMyFavorite,
 				createUser,
+				deleteUser,
 			}}
 		>
 			{children}

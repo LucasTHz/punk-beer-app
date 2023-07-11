@@ -77,3 +77,13 @@ export const createUser = async (info) => {
 		return error.response.data;
 	}
 };
+
+export const deleteUser = async (id) => {
+	try {
+		const { data } = await api.delete('/usuario/delete/' + id);
+
+		return data;
+	} catch (error) {
+		return error.response.data;
+	}
+};
